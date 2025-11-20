@@ -273,12 +273,14 @@ function ProjectCarouselSection() {
       data-animate-section
       className="w-full bg-[var(--background)] py-[6vh]"
     >
-      <header className="mb-[4vh] pl-[2vw] pr-0 max-w-xl">
-        <p className="text-[0.85rem] uppercase tracking-[0.2em] text-[var(--foreground)]/60">Projects</p>
-        <h2 className="mt-[1vh] text-left text-[clamp(1.8rem,4vw,2.4rem)] font-semibold leading-tight">
-          Featured Work & Case Studies
-        </h2>
-        <div className="mt-[4vh] flex justify-end -mr-[50vw]">
+      <header className="mb-[4vh] pl-[2vw] pr-[2vw] relative">
+        <div className="max-w-xl">
+          <p className="text-[0.85rem] uppercase tracking-[0.2em] text-[var(--foreground)]/60">Projects</p>
+          <h2 className="mt-[1vh] text-left text-[clamp(1.8rem,4vw,2.4rem)] font-semibold leading-tight">
+            Featured Work & Case Studies
+          </h2>
+        </div>
+        <div className="mt-[4vh] flex justify-end pr-[2vw]">
           <p className="max-w-md text-left text-[clamp(1rem,2.6vw,1.15rem)] text-[var(--foreground)]/75">
             Click on any project to explore the next one and discover our portfolio of innovative solutions.
           </p>
