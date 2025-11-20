@@ -4,6 +4,7 @@ import { NavLink } from "./nav-link";
 
 const navLinks = [
   { href: "#features", label: "Features" },
+  { href: "/products", label: "Products" },
   { href: "#work", label: "Work" },
   { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },

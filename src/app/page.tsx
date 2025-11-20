@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CircleImageCarousel from "./components/features/circle-img-slideshow";
+import ProjectCarousel from "./components/features/project-carousel";
 import { Button } from "./components/ui/button";
 
 function HeroSection() {
@@ -64,7 +65,7 @@ function ContentShowcaseSection() {
           </div>
           <div className="md:w-1/2">
             <img
-              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80"
+              src="images/products.png"
               alt="Product mockups displayed on layered cards"
               className="h-[70vh] w-full rounded-[24px] object-cover"
               loading="lazy"
@@ -87,7 +88,7 @@ function ContentShowcaseSection() {
           </div>
           <div className="md:w-1/2">
             <img
-              src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80"
+              src="images/bg.png"
               alt="Hands collaborating over design sketches"
               className="h-[70vh] w-full rounded-[24px] object-cover"
               loading="lazy"
@@ -167,7 +168,7 @@ function NarrativeSpotlightSection() {
       </div>
       <figure className="w-full h-[70vh] rounded-[24px] bg-[var(--foreground)]/5 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80"
+          src="images/bg.png"
           alt="Team collaborating around product storyboards"
           className="h-full w-full object-cover"
           loading="lazy"
@@ -230,6 +231,64 @@ function FaqSection() {
   );
 }
 
+function ProjectCarouselSection() {
+  const projects = [
+    {
+      id: 1,
+      title: "Project Alpha",
+      description: "A cutting-edge solution that transforms how teams collaborate and deliver exceptional results. Built with modern technologies and user-centered design principles.",
+      image: "/images/bg.png",
+      imageAlt: "Project Alpha showcase",
+      overlayText: "Auto-playing Pinball Machine",
+    },
+    {
+      id: 2,
+      title: "Project Beta",
+      description: "An innovative platform that streamlines workflows and enhances productivity. Designed to scale with your business needs and adapt to changing requirements.",
+      image: "/images/products.png",
+      imageAlt: "Project Beta showcase",
+      overlayText: "Flight Tracker Extension",
+    },
+    {
+      id: 3,
+      title: "Project Gamma",
+      description: "A comprehensive system that brings together the best tools and practices. Engineered for performance, reliability, and seamless user experience.",
+      image: "/images/bg.png",
+      imageAlt: "Project Gamma showcase",
+      overlayText: "Smart Analytics Dashboard",
+    },
+    {
+      id: 4,
+      title: "Project Delta",
+      description: "Revolutionary approach to solving complex challenges. Combining data-driven insights with intuitive interfaces for maximum impact.",
+      image: "/images/bg.png",
+      imageAlt: "Project Delta showcase",
+      overlayText: "AI-Powered Solutions",
+    },
+  ];
+
+  return (
+    <section
+      id="projects"
+      data-animate-section
+      className="w-full bg-[var(--background)] py-[6vh]"
+    >
+      <header className="mb-[4vh] pl-[2vw] pr-0 max-w-xl">
+        <p className="text-[0.85rem] uppercase tracking-[0.2em] text-[var(--foreground)]/60">Projects</p>
+        <h2 className="mt-[1vh] text-left text-[clamp(1.8rem,4vw,2.4rem)] font-semibold leading-tight">
+          Featured Work & Case Studies
+        </h2>
+        <div className="mt-[4vh] flex justify-end -mr-[50vw]">
+          <p className="max-w-md text-left text-[clamp(1rem,2.6vw,1.15rem)] text-[var(--foreground)]/75">
+            Click on any project to explore the next one and discover our portfolio of innovative solutions.
+          </p>
+        </div>
+      </header>
+      <ProjectCarousel projects={projects} ariaLabel="Featured projects carousel" />
+    </section>
+  );
+}
+
 function ContactSection() {
   return (
     <section
@@ -249,7 +308,7 @@ function ContactSection() {
             Same-week kickoff, zero ramp drama
           </h3>
           <p className="mt-[1.5vh] text-[clamp(1rem,2.6vw,1.15rem)] text-[var(--foreground)]/80">
-            Share your objectives, tooling stack, and release pressure. We’ll respond within 24 hours with a tailored plan, pod availability, and a clear pricing model.
+            Share your objectives, tooling stack, and release pressure. We'll respond within 24 hours with a tailored plan, pod availability, and a clear pricing model.
           </p>
         </div>
       </div>
@@ -320,6 +379,7 @@ export default function Home() {
       <HeroSection />
       <ContextHeaderSection />
       <ContentShowcaseSection />
+      <ProjectCarouselSection />
       <InfoSplitSection />
       <NarrativeSpotlightSection />
       <FaqSection />
