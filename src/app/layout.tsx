@@ -22,9 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <div className="flex min-h-svh flex-col bg-[var(--background)] text-[var(--foreground)]">
+    <html lang="en" className="overflow-x-hidden">
+      <body className={`${inter.variable} antialiased overflow-x-hidden`}>
+        <div className="flex min-h-svh flex-col bg-[var(--background)] text-[var(--foreground)] overflow-x-hidden">
           <SiteNav />
           <main className="flex-1">
             <div className="mx-auto w-full max-w-[min(1120px,92vw)] px-[2vw] py-[4vh] sm:px-0">

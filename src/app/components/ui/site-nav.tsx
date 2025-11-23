@@ -2,10 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./button";
 import { NavLink } from "./nav-link";
+import { BurgerMenu } from "./burger-menu";
 
 const navLinks = [
   { href: "/products", label: "Products" },
   { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -33,7 +35,7 @@ export function SiteNav() {
         </Link>
 
         <nav
-          className="order-3 flex w-full items-center justify-center gap-[min(5vw,1.5rem)] text-[var(--foreground)] md:order-none md:flex-1"
+          className="hidden md:order-none md:flex md:flex-1 md:items-center md:justify-center md:gap-[min(5vw,1.5rem)] text-[var(--foreground)]"
           aria-label="Primary navigation"
         >
           {navLinks.map(({ href, label }) => (
@@ -47,10 +49,15 @@ export function SiteNav() {
           ))}
         </nav>
 
-        <div className="flex flex-1 justify-end md:flex-none">
+        <div className="hidden md:flex md:flex-1 md:justify-end md:flex-none">
           <Button className="max-w-[180px] text-xs sm:text-sm px-[3vw] sm:px-4 py-[0.6vh] sm:py-[0.5rem]" fullWidth>
             Request a Quote
           </Button>
+        </div>
+
+        {/* Burger Menu - visible on mobile only */}
+        <div className="flex flex-1 justify-end md:hidden">
+          <BurgerMenu navLinks={navLinks} />
         </div>
       </div>
     </header>
