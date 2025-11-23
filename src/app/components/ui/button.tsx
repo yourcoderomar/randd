@@ -25,7 +25,7 @@ export function Button({
   const widthStyles = fullWidth
     ? "w-full"
     : "min-w-[120px]";
-  const paddingStyles = "px-[5vw] sm:px-8 py-[1.1vh] sm:py-[0.85rem]";
+  const paddingStyles = "px-[3vw] sm:px-4 py-[0.6vh] sm:py-[0.5rem]";
 
   return (
     <button
