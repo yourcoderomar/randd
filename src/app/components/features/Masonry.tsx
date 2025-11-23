@@ -2,14 +2,24 @@ import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 're
 import { gsap } from 'gsap';
 
 const useMedia = (queries: string[], values: number[], defaultValue: number): number => {
-  const get = () => values[queries.findIndex(q => matchMedia(q).matches)] ?? defaultValue;
+  const get = () => {
+    if (typeof window === 'undefined' || typeof matchMedia === 'undefined') {
+      return defaultValue;
+    }
+    const index = queries.findIndex(q => matchMedia(q).matches);
+    return values[index] ?? defaultValue;
+  };
 
   const [value, setValue] = useState<number>(get);
 
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof matchMedia === 'undefined') {
+      return;
+    }
     const handler = () => setValue(get);
-    queries.forEach(q => matchMedia(q).addEventListener('change', handler));
-    return () => queries.forEach(q => matchMedia(q).removeEventListener('change', handler));
+    const mediaQueries = queries.map(q => matchMedia(q));
+    mediaQueries.forEach(mq => mq.addEventListener('change', handler));
+    return () => mediaQueries.forEach(mq => mq.removeEventListener('change', handler));
   }, [queries]);
 
   return value;
@@ -101,15 +111,18 @@ const Masonry: React.FC<MasonryProps> = ({
       direction = dirs[Math.floor(Math.random() * dirs.length)] as typeof animateFrom;
     }
 
+    const windowHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
+    const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+
     switch (direction) {
       case 'top':
         return { x: item.x, y: -200 };
       case 'bottom':
-        return { x: item.x, y: window.innerHeight + 200 };
+        return { x: item.x, y: windowHeight + 200 };
       case 'left':
         return { x: -200, y: item.y };
       case 'right':
-        return { x: window.innerWidth + 200, y: item.y };
+        return { x: windowWidth + 200, y: item.y };
       case 'center':
         return {
           x: containerRect.width / 2 - item.w / 2,
