@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,10 +9,36 @@ gsap.registerPlugin(ScrollTrigger);
 interface FooterMarkProps {
   text?: string;
   className?: string;
+  tone?: "light" | "dark";
+  disableAnimation?: boolean;
 }
 
-export function FooterMark({ text = "R & D Engineering", className = "" }: FooterMarkProps) {
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updatePreference = () => setPrefersReducedMotion(media.matches);
+    updatePreference();
+    media.addEventListener("change", updatePreference);
+
+    return () => media.removeEventListener("change", updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+export function FooterMark({
+  text = "R & D Engineering",
+  className = "",
+  tone = "light",
+  disableAnimation = false
+}: FooterMarkProps) {
   const containerRef = useRef<HTMLParagraphElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const toneClass = useMemo(() => (tone === "dark" ? "text-black/5" : "text-white/10"), [tone]);
+  const shouldAnimate = !disableAnimation && !prefersReducedMotion;
 
   const characters = useMemo(
     () =>
@@ -25,6 +51,8 @@ export function FooterMark({ text = "R & D Engineering", className = "" }: Foote
   );
 
   useEffect(() => {
+    if (!shouldAnimate) return;
+
     const ctx = gsap.context(() => {
       const letters = containerRef.current?.querySelectorAll("[data-footer-letter] > span");
       if (!letters || letters.length === 0) return;
@@ -48,13 +76,15 @@ export function FooterMark({ text = "R & D Engineering", className = "" }: Foote
       );
     }, containerRef);
 
-    return () => ctx.revert();
-  }, []);
+    return () => ctx?.revert();
+  }, [shouldAnimate]);
 
   return (
     <p
       ref={containerRef}
-      className={`absolute -bottom-[clamp(2rem,8vw,5rem)] left-1/2 -translate-x-1/2 z-0 w-full max-w-full overflow-hidden text-center text-[clamp(2rem,12vw,7rem)] font-black uppercase tracking-tight text-white/10 whitespace-nowrap px-4 scale-y-[2.2] ${className}`}
+      aria-hidden="true"
+      role="presentation"
+      className={`absolute -bottom-[clamp(2rem,8vw,5rem)] left-1/2 -translate-x-1/2 z-0 w-full max-w-full overflow-hidden text-center text-[clamp(2rem,12vw,7rem)] font-black uppercase tracking-tight whitespace-nowrap px-4 scale-y-[2.2] ${toneClass} ${className}`}
     >
       {characters}
     </p>

@@ -50,7 +50,11 @@ export function SiteNav() {
         </nav>
 
         <div className="hidden md:flex md:flex-1 md:justify-end md:flex-none">
-          <Button className="max-w-[180px] text-xs sm:text-sm px-[3vw] sm:px-4 py-[0.6vh] sm:py-[0.5rem]" fullWidth>
+          <Button
+            href="/request-quote"
+            className="max-w-[180px] text-xs sm:text-sm px-[3vw] sm:px-4 py-[0.6vh] sm:py-[0.5rem]"
+            fullWidth
+          >
             Request a Quote
           </Button>
         </div>

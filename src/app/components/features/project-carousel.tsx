@@ -28,6 +28,59 @@ export default function ProjectCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
+  const NavigationButtons = ({ wrapperClassName = "" }: { wrapperClassName?: string }) => (
+    <div
+      className={`flex items-center justify-end gap-[3vw] md:gap-[1vw] flex-wrap ${wrapperClassName}`}
+      aria-label="Carousel navigation"
+    >
+      <span className="text-[clamp(0.9rem, 2vw, 1rem)] tracking-[0.2em] text-[var(--foreground)]/60 uppercase">
+        {String(currentIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+      </span>
+      <div className="inline-flex items-center gap-[2vw] md:gap-[0.8vw]">
+        <button
+          onClick={handlePrevious}
+          className="group h-[12vw] w-[12vw] md:h-[3.2vw] md:w-[3.2vw] max-h-[48px] max-w-[48px] min-h-[42px] min-w-[42px] rounded-full border border-[var(--foreground)]/25 bg-[var(--background)]/80 text-[var(--foreground)] transition-all duration-200 hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--foreground)]"
+          aria-label="Previous project"
+        >
+          <svg
+            className="h-[1.6rem] w-[1.6rem] mx-auto"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 5L8 12L15 19"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          onClick={handleNext}
+          className="group h-[12vw] w-[12vw] md:h-[3.2vw] md:w-[3.2vw] max-h-[48px] max-w-[48px] min-h-[42px] min-w-[42px] rounded-full border border-[var(--foreground)]/25 bg-[var(--background)]/80 text-[var(--foreground)] transition-all duration-200 hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--foreground)]"
+          aria-label="Next project"
+        >
+          <svg
+            className="h-[1.6rem] w-[1.6rem] mx-auto"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 5L16 12L9 19"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -111,39 +164,26 @@ export default function ProjectCarousel({
       {/* Project details below carousel */}
       {projects[currentIndex] && (
         <div className="mt-[4vh] pl-[2vw] pr-[6vw] transition-opacity duration-500">
-          <div className="text-left">
-            <div className="flex items-center gap-[4vw] md:gap-[50vw] mb-[0.3vh] flex-wrap">
+          <div className="text-left relative">
+            <div className="flex flex-col gap-[1.5vh] md:flex-row md:items-center md:justify-between md:pr-[10vw]">
               {projects[currentIndex].title && (
                 <h3 className="text-[clamp(1.5rem, 4vw, 2.25rem)] font-medium leading-tight">
                   {projects[currentIndex].title}
                 </h3>
               )}
-              
-              {/* Navigation buttons aligned with header */}
-              <div className="inline-flex items-center rounded-2xl bg-[var(--foreground)]/5 border border-[var(--foreground)]/10 overflow-hidden" aria-label="Carousel navigation">
-                <button
-                  onClick={handlePrevious}
-                  className="px-[1.2vw] py-[0.8vh] hover:bg-[var(--foreground)]/10 transition-all duration-200 flex items-center justify-center text-[clamp(1rem, 2vw, 1.2rem)] text-[var(--foreground)] font-medium"
-                  aria-label="Previous project"
-                >
-                  &lt;
-                </button>
-                <div className="h-[50%] w-px bg-[var(--foreground)]/20"></div>
-                <button
-                  onClick={handleNext}
-                  className="px-[1.2vw] py-[0.8vh] hover:bg-[var(--foreground)]/10 transition-all duration-200 flex items-center justify-center text-[clamp(1rem, 2vw, 1.2rem)] text-[var(--foreground)] font-medium"
-                  aria-label="Next project"
-                >
-                  &gt;
-                </button>
-              </div>
             </div>
+
+            {/* Navigation buttons fixed to the right of the section */}
+            <NavigationButtons wrapperClassName="hidden md:flex md:mt-0 md:absolute md:top-1/2 md:right-0 md:-translate-y-1/2" />
             
             {projects[currentIndex].description && (
               <p className="max-w-xl text-[clamp(1rem, 2.5vw, 1.2rem)] text-[var(--foreground)]/80 leading-relaxed">
                 {projects[currentIndex].description}
               </p>
             )}
+
+            {/* Mobile navigation positioned after the description */}
+            <NavigationButtons wrapperClassName="mt-[2vh] md:hidden w-full justify-between" />
           </div>
         </div>
       )}
