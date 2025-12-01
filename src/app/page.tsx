@@ -179,12 +179,14 @@ function ContentShowcaseSection() {
             </Button>
           </div>
           <div className="md:w-1/2">
-            <img
-              src="/images/products.png"
-              alt="BMU product console with live pack telemetry"
-              className="h-[45vh] w-full rounded-[24px] object-cover sm:h-[60vh]"
-              loading="lazy"
-            />
+            <div className="h-[45vh] w-full rounded-[24px] bg-[var(--muted)] sm:h-[60vh] overflow-hidden">
+              <img
+                src="/images/palazani.jpg"
+                alt="BMU product console with live pack telemetry"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
           </div>
         </article>
 
@@ -234,21 +236,14 @@ function InfoSplitSection() {
   return (
     <section
       id="insight"
-      className="rounded-[28px] bg-[var(--foreground)]/3 px-[6vw] py-[5vh] space-y-[4vh]"
+      className="rounded-[28px] px-[6vw] py-[5vh] space-y-[4vh]"
     >
-      <div className="flex flex-col gap-[3vh] md:flex-row md:items-start md:gap-[5vw]">
-        <header className="md:w-[58%]">
-          <p className="text-[0.85rem] uppercase tracking-[0.18em] text-[var(--foreground)]/65">Clients</p>
-          <h2 className="mt-[1vh] text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight">
-            Trusted by Thousands, Engineered by Excellence
-          </h2>
-        </header>
-        <article className="md:w-[42%] md:self-end">
-          <p className="text-[clamp(1rem,2.8vw,1.2rem)] leading-relaxed text-[var(--foreground)]/80">
-            We are proud to work with some of the world's leading companies to deliver the best possible solutions for their needs.
-          </p>
-        </article>
+      <div className="flex w-full justify-center">
+        <span className="inline-flex w-auto items-center rounded-full border border-[var(--foreground)]/35 bg-[var(--background)]/70 px-[0.8rem] py-[0.35rem] text-[0.65rem] uppercase tracking-[0.11em] text-[var(--foreground)]/75">
+          Trusted by Thousands
+        </span>
       </div>
+
       <LogoLoop
         logos={signalLogos}
         speed={70}
@@ -259,7 +254,7 @@ function InfoSplitSection() {
         fadeOut
         ariaLabel="Partner ecosystems in motion"
         width="calc(100% + 12vw)"
-        className="mt-[10vh] -mx-[6vw]"
+        className="mt-[4vh] -mx-[6vw]"
       />
     </section>
   );
@@ -516,6 +511,12 @@ function ContextHeaderSection() {
       className="rounded-[28px] px-[6vw] py-[6vh]"
     >
       <div className="mx-auto flex max-w-3xl flex-col gap-[4vh] text-center">
+        <article>
+          <p className="text-[clamp(1.25rem,4vw,2rem)] font-semibold leading-tight text-[var(--foreground)]/90">
+            This header-only block acts like a teaser paragraph—just enough context before the next experiment loads in.
+          </p>
+        </article>
+
         <aside className="flex flex-col gap-[1.5vh]">
           <div className="flex flex-row flex-wrap justify-center gap-[4vw]">
             {distributedBrands.map((brand) => (
@@ -535,22 +536,6 @@ function ContextHeaderSection() {
             ))}
           </div>
         </aside>
-
-        <article>
-          <p className="text-[clamp(1.25rem,4vw,2rem)] font-semibold leading-tight text-[var(--foreground)]/90">
-            This header-only block acts like a teaser paragraph—just enough{" "}
-            <span className="inline-flex align-middle">
-              <CircleImageCarousel
-                images={contextImages}
-                size="xs"
-                interval={2200}
-                className="align-middle"
-                ariaLabel="Context teaser imagery carousel"
-              />
-            </span>
-            {" "}context before the next experiment loads in.
-          </p>
-        </article>
       </div>
     </section>
   );

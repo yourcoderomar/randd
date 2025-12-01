@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
 import TextType from "../components/features/TextType";
-import Masonry from "../components/features/Masonry";
+import ScrollStack, { ScrollStackItem } from "../components/features/ScrollStack";
 
 const projects = [
   {
@@ -93,6 +93,19 @@ export default function ProjectsPage() {
           }
         );
       });
+
+      // Slide in the featured projects ScrollStack (no fade) after scrolling past the hero
+      gsap.to("#featured-projects-stack", {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#featured-projects",
+          start: "top 70%",
+          toggleActions: "play none none reverse",
+        },
+      });
     });
 
     return () => ctx.revert();
@@ -117,33 +130,70 @@ export default function ProjectsPage() {
             />
           </h1>
           <div className="flex flex-col sm:flex-row gap-[2vh] pt-[1vh]">
-            <Button className="min-w-[180px]">View All Projects</Button>
-            <Button variant="ghost" className="min-w-[180px]">Filter Projects</Button>
+            <Link href="/projects/all" className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto min-w-[180px]">
+                Start a Project
+              </Button>
+            </Link>
+            <Button variant="ghost" className="w-full sm:w-auto min-w-[180px]">
+              View All Projects
+            </Button>
           </div>
         </header>
       </section>
 
+      {/* Featured Projects Section (ScrollStack) */}
       <section
-        id="projects-grid"
-        data-animate-section
-        className="w-full min-h-[80vh]"
+        id="featured-projects"
+        className="px-0"
       >
-        <Masonry
-          items={projects.map((project, index) => ({
-            id: project.id.toString(),
-            img: project.image,
-            url: `#project-${project.id}`,
-            height: 300 + (index % 3) * 100, // Varying heights for visual interest
-          }))}
-          ease="power3.out"
-          duration={0.6}
-          stagger={0.05}
-          animateFrom="bottom"
-          scaleOnHover={true}
-          hoverScale={0.95}
-          blurToFocus={true}
-          colorShiftOnHover={false}
-        />
+        <div id="featured-projects-stack" className="translate-y-[120px]">
+          <ScrollStack useWindowScroll>
+            {projects.slice(0, 3).map((project) => (
+              <ScrollStackItem key={project.id}>
+                <Link
+                  href="/projects/all"
+                  className="block h-full"
+                  data-cursor="project"
+                >
+                  <div
+                    className="relative w-full h-full rounded-[40px] overflow-hidden bg-cover bg-center"
+                    style={{ backgroundImage: `url(${project.image})` }}
+                    aria-label={project.imageAlt}
+                  >
+                    <div className="absolute left-[3vw] top-[3vh] flex flex-col items-start gap-[1vh]">
+                      <h3 className="text-[clamp(1.4rem,3vw,2rem)] font-semibold text-white drop-shadow-md">
+                        {project.title}
+                      </h3>
+                      <span className="inline-flex items-center rounded-full border border-white/60 px-3 py-1 text-[0.75rem] uppercase tracking-[0.16em] text-white/85">
+                        Product used
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollStackItem>
+            ))}
+
+            {/* CTA Card as last ScrollStack item (no project cursor state) */}
+            <ScrollStackItem>
+              <div className="flex h-full items-start justify-center rounded-[40px] bg-black pt-[16vh]">
+                <div className="flex flex-col items-center justify-center gap-[6vh] px-[4vw] text-center">
+                  <span className="inline-flex items-center rounded-full border border-white/30 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.18em] text-white/80">
+                    Project archive
+                  </span>
+                  <h3 className="text-[clamp(1.6rem,3.4vw,2.4rem)] font-semibold text-white">
+                    Browse the full project archive
+                  </h3>
+                  <Link href="/projects/all">
+                    <Button className="bg-white text-black hover:bg-white/90 min-w-[200px]">
+                      Show all projects
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </ScrollStackItem>
+          </ScrollStack>
+        </div>
       </section>
 
       <section
