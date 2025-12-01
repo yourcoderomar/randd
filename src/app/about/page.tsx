@@ -81,42 +81,42 @@ function HeaderSection() {
 function MissionVisionSection() {
   return (
     <section
-      className="relative rounded-[28px] border border-[var(--foreground)]/12 bg-[var(--background)] px-[6vw] py-[6vh]"
+      className="relative px-[6vw] py-[8vh] md:py-[10vh]"
       data-animate-section
     >
-      <div className="flex flex-col gap-[5vh] md:flex-row md:items-start md:gap-[5vw]">
+      <div className="mx-auto flex max-w-6xl flex-col gap-[6vh] md:grid md:auto-rows-min md:grid-cols-2 md:gap-x-[10vw] md:gap-y-[10vh]">
         {/* Mission */}
-        <div className="md:w-1/2">
-          <p className="text-[0.8rem] uppercase tracking-[0.22em] text-[var(--foreground)]/60">Our Mission</p>
-          <h2 className="mt-[1vh] text-[clamp(1.8rem,4vw,2.4rem)] font-semibold leading-tight">
-            To turn complex challenges into simple, powerful experiences.
+        <div className="md:col-span-1 md:row-span-1 md:self-start">
+          <h2 className="text-[clamp(2.4rem,7vw,3.4rem)] font-semibold leading-none tracking-tight">
+            Mission
           </h2>
-          <p className="mt-[2vh] text-[clamp(0.98rem,2.4vw,1.1rem)] text-[var(--foreground)]/80">
+          <p className="mt-[2vh] max-w-prose text-[clamp(1rem,2.4vw,1.1rem)] text-[var(--foreground)]/80">
             We exist to help our partners move faster and smarter. By combining strategy, design, and engineering, we
             craft solutions that are not only beautiful and intuitive, but measurable in their impact on people and
             performance.
           </p>
-          <p className="mt-[1.5vh] text-[clamp(0.95rem,2.2vw,1.05rem)] text-[var(--foreground)]/70">
+          <p className="mt-[1.8vh] max-w-prose text-[clamp(0.98rem,2.2vw,1.05rem)] text-[var(--foreground)]/70">
             Every project is a collaboration. We listen closely, challenge assumptions, and build with care so that
             what we deliver is robust today and ready for what&apos;s next.
           </p>
         </div>
 
         {/* Vision */}
-        <div className="md:w-1/2">
-          <p className="text-[0.8rem] uppercase tracking-[0.22em] text-[var(--foreground)]/60">Our Vision</p>
-          <h2 className="mt-[1vh] text-[clamp(1.8rem,4vw,2.4rem)] font-semibold leading-tight">
-            A world where technology quietly elevates everyday life.
-          </h2>
-          <p className="mt-[2vh] text-[clamp(0.98rem,2.4vw,1.1rem)] text-[var(--foreground)]/80">
-            We imagine products and spaces that feel effortless to use, respectful of people&apos;s time and attention,
-            and responsible toward the environment. Experiences that simply work — so well that the technology fades
-            into the background.
-          </p>
-          <p className="mt-[1.5vh] text-[clamp(0.95rem,2.2vw,1.05rem)] text-[var(--foreground)]/70">
-            By investing in sustainable practices, inclusive design, and long-term partnerships, we aim to leave every
-            product, place, and community better than we found it.
-          </p>
+        <div className="md:col-start-2 md:row-start-2 md:self-end">
+          <div className="md:ml-auto md:max-w-prose">
+            <h2 className="text-[clamp(2.4rem,7vw,3.4rem)] font-semibold leading-none tracking-tight">
+              Vision
+            </h2>
+            <p className="mt-[2vh] text-[clamp(1rem,2.4vw,1.1rem)] text-[var(--foreground)]/80">
+              We imagine products and spaces that feel effortless to use, respectful of people&apos;s time and
+              attention, and responsible toward the environment. Experiences that simply work — so well that the
+              technology fades into the background.
+            </p>
+            <p className="mt-[1.8vh] text-[clamp(0.98rem,2.2vw,1.05rem)] text-[var(--foreground)]/70">
+              By investing in sustainable practices, inclusive design, and long-term partnerships, we aim to leave
+              every product, place, and community better than we found it.
+            </p>
+          </div>
         </div>
       </div>
     </section>
